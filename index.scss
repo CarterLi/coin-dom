@@ -1,0 +1,51 @@
+html, body {
+	height: 100%;
+}
+
+body {
+	height: 100%;
+	margin: 0;
+	background: black;
+}
+
+main {
+	height: 100%;
+	width: 480px;
+	margin: 0 auto;
+	background: #1e89e0;
+	position: relative;
+}
+
+header {
+	position: absolute;
+	left: 1em;
+	top: 1em;
+	font: 24px Simhei;
+	color: white;
+	
+	div + div {
+		margin-top: .5em;
+	}
+}
+
+@keyframes MoveGrass {
+	from { background-position: 0 0 }
+	to { background-position: 333.3px 0 }
+}
+
+footer {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: url(img/grass.png) repeat-x;
+	background-size: contain;
+	height: 68.8px;
+	animation: MoveGrass 5s infinite linear;
+}
+
+ul {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
