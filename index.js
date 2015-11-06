@@ -21,6 +21,25 @@
     e.preventDefault();
   });
 
+  document.getElementById('circle').addEventListener('animationend', function(e) {
+    this.style.display = 'none';
+  });
+
+  ['mousedown', 'touchstart'].forEach(eventName=> {
+    document.querySelector('main').addEventListener(eventName, function(e) {
+      let pos = {
+        pageX: e.pageX !== undefined ? e.pageX : e.touches[0].pageX,
+        pageY: e.pageY !== undefined ? e.pageY : e.touches[0].pageY
+      };
+      let circle = document.getElementById('circle');
+      circle.style.display = 'none';
+      circle.style.left = `${pos.pageX - this.offsetLeft - 5}px`;
+      circle.style.top = `${pos.pageY - 5}px`;
+      circle.style.display = 'block';
+      e.preventDefault();
+    });
+  });
+
   Array.prototype.forEach.call(document.querySelectorAll('#coins li'), coin=> {
     let updateCoinSpeed = ()=> {
       let rnd = Math.random() * 2 + .4;
@@ -37,6 +56,7 @@
     ['mousedown', 'touchstart'].forEach(eventName=> {
       coin.addEventListener(eventName, e=> {
         coin.classList.add('clicked');
+        e.preventDefault();
       });
     });
     coin.addEventListener('transitionend', e=> {

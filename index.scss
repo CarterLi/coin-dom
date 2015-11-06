@@ -1,138 +1,159 @@
-html, body {
-	height: 100%;
+html {
+  height: 100%;
 
-	// 1rem 就是当前游戏窗口宽度，好孩子不要学
-	font-size: 100vw;
-	@media (min-width: 480px) {
-		font-size: 480px;
-	}
+  // 1rem 就是当前游戏窗口宽度，好孩子不要学
+  font-size: 100vw;
+  @media (min-width: 480px) {
+    font-size: 480px;
+  }
 }
 
 body {
-	height: 100%;
-	margin: 0;
-	font-size: 16px;
-	background: black;
-	-webkit-user-select: none;
-	user-select: none;
+  height: 100%;
+  margin: 0;
+  font: captain;
+  background: black;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 main {
-	height: 100%;
-	width: 1rem;
-	margin: 0 auto;
-	background: #1e89e0;
-	position: relative;
-	overflow: hidden;
+  height: 100%;
+  width: 1rem;
+  margin: 0 auto;
+  background: #1e89e0;
+  position: relative;
+  overflow: hidden;
 }
 
 header {
-	position: absolute;
-	left: 1em;
-	top: 1em;
-	font: 24px Simhei;
-	color: white;
-	pointer-events: none;
+  position: absolute;
+  left: 1em;
+  top: 1em;
+  font-size: 24px;
+  color: white;
+  pointer-events: none;
 
-	div + div {
-		margin-top: .5em;
-	}
+  div + div {
+    margin-top: .5em;
+  }
 }
 
 @keyframes MoveGrass {
-	from { background-position: 1rem 0 }
-	to { background-position: -76.6px 0 }
+  from { background-position: 1rem 0 }
+  to { background-position: -76.6px 0 }
 }
 
 footer {
-	position: absolute;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background: url(img/grass.png) repeat-x;
-	background-size: auto 100%;
-	height: 68.8px;
-	animation: MoveGrass 8s infinite linear;
-	z-index: 100;
-	pointer-events: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url(img/grass.png) repeat-x;
+  background-size: auto 100%;
+  height: 68.8px;
+  animation: MoveGrass 8s infinite linear;
+  z-index: 100;
+  pointer-events: none;
+}
+
+@keyframes ChangeCircleColor {
+  to {
+    background: black;
+    opacity: 0;
+  }
+}
+
+#circle {
+  width: 10px;
+  height: 10px;
+  border: 1px solid black;
+  border-radius: 50%;
+  background: darkred;
+  opacity: 1;
+  animation: ChangeCircleColor .2s;
+  display: none;
+  position: absolute;
+  box-sizing: border-box;
+  z-index: 200;
 }
 
 ul {
-	padding: 0;
-	margin: 0;
-	list-style: none;
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
 
 @keyframes MoveClouds {
-	from { transform: translateX(1rem) }
-	to { transform: translateX(-76.6px) }
+  from { transform: translateX(1rem) }
+  to { transform: translateX(-76.6px) }
 }
 
 #clouds {
-	position: absolute;
-	left: 0;
-	right: 0;
-	top: 0;
-	height: 34.6px * 2;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 34.6px * 2;
 
-	li {
-		position: absolute;
-		background: url(img/cloud.svg) no-repeat;
-		background-size: contain;
-		top: 0;
-		bottom: 0;
-		margin: auto 0;
-		animation: MoveClouds 8s infinite linear;
-		z-index: 100;
+  li {
+    position: absolute;
+    background: url(img/cloud.svg) no-repeat;
+    background-size: contain;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+    animation: MoveClouds 8s infinite linear;
+    z-index: 100;
 
-		@for $i from 1 through 5 {
-			&:nth-child(#{$i}) {
-				$rnd: random() + .8;
-				width: 43.3px * $rnd;
-				height: 34.6px * $rnd;
-				animation-delay: -$i / 5 * 8s;
-			}
-		}
-	}
+    @for $i from 1 through 5 {
+      &:nth-child(#{$i}) {
+        $rnd: random() + .8;
+        width: 43.3px * $rnd;
+        height: 34.6px * $rnd;
+        animation-delay: -$i / 5 * 8s;
+      }
+    }
+  }
 }
 
 @mixin KeyFramesName($name) {
-	@keyframes #{$name} {
-		from { transform: translateY(0) }
-		to { transform: translateY(calc(100vh + 32px)) }
-	}
+  @keyframes #{$name} {
+    from { transform: translateY(0) }
+    to { transform: translateY(calc(100vh + 32px)) }
+  }
 }
 
 @include KeyFramesName(MoveCoins);
 @include KeyFramesName(MoveCoins1);
 
 #coins {
-	width: 100%;
-	height: 100%;
+  width: 100%;
+  height: 100%;
 
-	li {
-		position: absolute;
-		background: url(img/ele.png) no-repeat;
-		background-size: contain;
-		border-radius: 50%;
-		animation: MoveCoins 15s linear;
-		z-index: 50;
-		cursor: pointer;
+  li {
+    position: absolute;
+    background: url(img/ele.png) no-repeat;
+    background-size: contain;
+    border-radius: 50%;
+    animation: MoveCoins 15s linear;
+    z-index: 50;
+    cursor: pointer;
 
-		&.clicked {
-			opacity: 0;
-			transition: opacity .2s;
-			animation-play-state: paused;
-		}
+    &.clicked {
+      opacity: 0;
+      transition: opacity .2s;
+      animation-play-state: paused;
+    }
 
-		@for $i from 1 through 4 {
-			&:nth-child(#{$i}) {
-				left: calc(1rem / 5 * #{$i} - 60px);
-			}
-		}
+    @for $i from 1 through 4 {
+      &:nth-child(#{$i}) {
+        left: calc(1rem / 5 * #{$i} - 60px);
+      }
+    }
 
-		&.toggle-anime {
-			animation-name: MoveCoins1;
-		}
-	}
+    &.toggle-anime {
+      animation-name: MoveCoins1;
+    }
+  }
 }
