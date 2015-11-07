@@ -11,7 +11,7 @@ html {
 body {
   height: 100%;
   margin: 0;
-  font: captain;
+  font: caption;
   background: black;
   -webkit-user-select: none;
   user-select: none;
@@ -49,7 +49,7 @@ footer {
   left: 0;
   right: 0;
   bottom: 0;
-  background: url(img/grass.png) repeat-x;
+  background: url(../img/grass.png) repeat-x;
   background-size: auto 100%;
   height: 68.8px;
   animation: MoveGrass 8s infinite linear;
@@ -98,7 +98,7 @@ ul {
 
   li {
     position: absolute;
-    background: url(img/cloud.svg) no-repeat;
+    background: url(../img/cloud.svg) no-repeat;
     background-size: contain;
     top: 0;
     bottom: 0;
@@ -133,7 +133,7 @@ ul {
 
   li {
     position: absolute;
-    background: url(img/ele.png) no-repeat;
+    background: url(../img/ele.png) no-repeat;
     background-size: contain;
     border-radius: 50%;
     animation: MoveCoins 15s linear;
