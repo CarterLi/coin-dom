@@ -2,22 +2,22 @@
   'use strict';
 
   const money = {
+    earnedDom: document.getElementById('earnedMoney'),
     get earned() {
-      return Number(document.getElementById('earnedMoney').textContent);
+      return Number(this.earnedDom.textContent);
     },
     set earned(value) {
-      document.getElementById('earnedMoney').textContent = value;
+      this.earnedDom.textContent = value;
     },
 
+    lostDom: document.getElementById('lostMoney'),
     get lost() {
-      return Number(document.getElementById('lostMoney').textContent);
+      return Number(this.lostDom.textContent);
     },
     set lost(value) {
-      document.getElementById('lostMoney').textContent = value;
+      this.lostDom.textContent = value;
     },
   };
-
-  document.addEventListener('contextmenu', event=> event.preventDefault());
 
   document.getElementById('circle').addEventListener('animationend', function onAnimationEnd() {
     this.style.display = 'none';
@@ -38,34 +38,34 @@
     });
   });
 
+  function updateCoinSpeed(coin) {
+    const rnd = Math.random() * 2 + 0.4;
+
+    coin.style.width = `${32 * rnd}px`;
+    coin.style.height = `${32 * rnd}px`;
+    coin.style.top = `${-32 * rnd}px`;
+    coin.style.animationDuration = `${5 * (Math.random() + 0.3)}s`;
+    coin.style.animationDelay = `${5 * (Math.random() / 2 + 0.5)}s`;
+  }
+
   Array.prototype.forEach.call(document.querySelectorAll('#coins li'), coin=> {
-    const updateCoinSpeed = ()=> {
-      const rnd = Math.random() * 2 + 0.4;
-
-      coin.style.width = `${32 * rnd}px`;
-      coin.style.height = `${32 * rnd}px`;
-      coin.style.top = `${-32 * rnd}px`;
-      coin.style.animationDuration = `${5 * (Math.random() + 0.3)}s`;
-      coin.style.animationDelay = `${5 * (Math.random() / 2 + 0.5)}s`;
-    };
-
-    updateCoinSpeed();
+    updateCoinSpeed(coin);
 
     ['mousedown', 'touchstart'].forEach(eventName=> {
-      coin.addEventListener(eventName, event=> {
-        coin.classList.add('clicked');
+      coin.addEventListener(eventName, function onMouseDown(event) {
+        this.classList.add('clicked');
         event.preventDefault();
       });
     });
-    coin.addEventListener('transitionend', ()=> {
-      coin.classList.remove('clicked');
-      updateCoinSpeed();
-      coin.classList.toggle('toggle-anime');
+    coin.addEventListener('transitionend', function onTransitionEnd() {
+      this.classList.remove('clicked');
+      updateCoinSpeed(coin);
+      this.classList.toggle('toggle-anime');
       ++money.earned;
     });
-    coin.addEventListener('animationend', ()=> {
-      updateCoinSpeed();
-      coin.classList.toggle('toggle-anime');
+    coin.addEventListener('animationend', function onAnimationEnd() {
+      updateCoinSpeed(coin);
+      this.classList.toggle('toggle-anime');
       ++money.lost;
     });
   });
